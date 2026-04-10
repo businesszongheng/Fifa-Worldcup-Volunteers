@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIFA 26 | Diplomatic Mission Kenya-Canada</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Montserrat:wght@300;400;700;900&display=swap');
+
+        :root {
+            --fifa-gold: #ffcc00;
+            --kenya-green: #006600;
+            --canada-red: #ef3340;
+            --deep-navy: #050b14;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            color: #fff;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #050b14, #0a1a12, #1a0505, #050b14);
+            background-size: 400% 400%;
+            animation: flagShift 20s ease infinite;
+        }
+
+        @keyframes flagShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* PREMIUM TOP NAV */
+        .top-nav {
+            background: #ffffff;
+            padding: 8px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .brand-logos { 
+            display: flex; 
+            gap: 20px; 
+            align-items: center; 
+        }
+        .brand-logos img { height: 50px; object-fit: contain; }
+        .logo-divider { width: 1px; height: 30px; background: #ddd; }
+
+        #countdown-container {
+            flex-grow: 1;
+            text-align: center;
+            color: #111;
+            font-family: 'Oswald', sans-serif;
+        }
+        #timer { font-size: 1.4rem; font-weight: 700; letter-spacing: 1px; color: var(--canada-red); }
+        .timer-label { font-size: 0.65rem; text-transform: uppercase; font-weight: 700; color: #777; letter-spacing: 2px; }
+
+        .fast-track {
+            background: #000;
+            color: var(--fifa-gold);
+            padding: 12px 28px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            border: 2px solid #000;
+        }
+        .fast-track:hover { background: var(--fifa-gold); color: #000; }
+
+        /* SLOW SWIPING MARQUEE */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            background: rgba(0,0,0,0.6);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 25px 0;
+        }
+        .marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: swipeLeft 35s linear infinite; /* Slower, majestic speed */
+        }
+        .marquee-content h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4rem;
+            display: inline-block;
+            margin: 0;
+            padding-right: 100px;
+            text-transform: uppercase;
+        }
+        .tm { font-size: 1rem; vertical-align: super; font-weight: 300; }
+
+        @keyframes swipeLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .match-ticker {
+            background: var(--fifa-gold);
+            color: #000;
+            padding: 8px 0;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        /* HERO HEADER */
+        header {
+            height: 45vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(5, 11, 20, 0.2), rgba(5, 11, 20, 0.9)), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container { max-width: 1300px; margin: auto; padding: 60px 20px; display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 40px; }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 45px;
+            margin-bottom: 30px;
+        }
+
+        h2 { font-family: 'Oswald', sans-serif; font-size: 2rem; letter-spacing: 1px; margin-bottom: 25px; border-left: 5px solid var(--fifa-gold); padding-left: 15px; }
+
+        .role-selector { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 35px 0; }
+        .role-item {
+            background: rgba(255,255,255,0.03);
+            padding: 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.4s;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+        }
+        .role-item:hover { background: var(--canada-red); border-color: #fff; transform: translateY(-5px); }
+        .role-item.selected { background: var(--fifa-gold); color: #000; font-weight: 800; border-color: #000; }
+
+        .magic-btn {
+            background: var(--fifa-gold);
+            color: #000;
+            padding: 22px 50px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 900;
+            display: inline-block;
+            transition: 0.3s;
+            letter-spacing: 2px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        /* SIDEBAR STUFF */
+        .stadium-preview { width: 100%; border-radius: 8px; filter: grayscale(20%); transition: 0.5s; }
+        .stadium-preview:hover { filter: grayscale(0%); }
+        
+        .trophy-large {
+            width: 80%;
+            display: block;
+            margin: 30px auto 0;
+            filter: drop-shadow(0 0 30px rgba(255, 204, 0, 0.3));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .schedule-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+        .schedule-date { color: var(--fifa-gold); font-weight: 700; min-width: 80px; }
+
+        footer { text-align: center; padding: 80px; background: #000; color: #555; font-size: 0.75rem; letter-spacing: 3px; }
+
+        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="brand-logos">
+        <img src="https://tse3.mm.bing.net/th/id/OIP.pVYG0qGdYY3hGPP8U0gMfgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="FIFA 26">
+        <div class="logo-divider"></div>
+        <img src="https://mutiemule.com/wp-content/uploads/2018/03/Kenya-Government-Logo-Coat-of-Arms.png" alt="Kenya Coat of Arms">
+        <div class="logo-divider"></div>
+        <img src="https://www.arcusplus.com/wp-content/uploads/2017/10/embassy-canada.png" alt="Canada Embassy">
+    </div>
+
+    <div id="countdown-container">
+        <span class="timer-label">Tournament Countdown</span>
+        <div id="timer">-- : -- : -- : --</div>
+    </div>
+
+    <a href="https://www.cognitoforms.com/_20264/FIFA2026WorldCupVolunteerApplication" class="fast-track">OFFICIAL APPLICATION</a>
+</nav>
+
+<div class="match-ticker">
+    <marquee scrollamount="8">
+        NAIROBI HUB STATUS: OPEN &nbsp;&nbsp; • &nbsp;&nbsp; RECRUITMENT PHASE: DIPLOMATIC SCREENING &nbsp;&nbsp; • &nbsp;&nbsp; WORLD CUP FINAL: NEW JERSEY JULY 19 &nbsp;&nbsp; • &nbsp;&nbsp; KICKOFF: MEXICO CITY JUNE 11
+    </marquee>
+</div>
+
+<header>
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <h1>WE ARE 26<span class="tm">TM</span></h1>
+            <h1>FIFA WORLD CUP 2026<span class="tm">TM</span></h1>
+            <h1>VOLUNTEER PROGRAM<span class="tm">TM</span></h1>
+            <h1>FIFA WORLD CUP 2026<span class="tm">TM</span></h1>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="main-content">
+        <div class="glass-card">
+            <h2>Strategic Field Operations</h2>
+            <p style="line-height: 1.8; font-weight: 300; font-size: 1.1rem; color: #ccc;">
+                The High Commission of Canada in Nairobi, in partnership with the Government of Kenya, invites exceptional individuals to apply for specialized operational roles. This mission bridges African excellence with North American innovation.
+            </p>
+            
+            <div class="role-selector">
+                <div class="role-item" onclick="pick(this, 'Strategic Media')">DIPLOMATIC MEDIA</div>
+                <div class="role-item" onclick="pick(this, 'Safety Operations')">SAFETY & PROTOCOL</div>
+                <div class="role-item" onclick="pick(this, 'Global Logistics')">LOGISTICS & VENUE OPERATIONS</div>
+<div class="role-item" onclick="pick(this, 'Technical Services')">TRANSPORT SUPERVISOR</div>
+<div class="role-item" onclick="pick(this, 'Technical Services')">HOSPITALITY & VIP SERVICES</div>
+                <div class="role-item" onclick="pick(this, 'Technical Services')">TECHNICAL LIAISON</div>
+            </div>
+
+            <div id="magic-portal" style="display:none; text-align:center; padding-top: 20px;">
+                <p style="margin-bottom: 25px; color: var(--fifa-gold); text-transform: uppercase; letter-spacing: 2px;">Role Requirements Validated</p>
+                <a href="https://www.cognitoforms.com/_20264/FIFA2026WorldCupVolunteerApplication" class="magic-btn">INITIATE OFFICIAL APPLICATION</a>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h2>Primary Schedule</h2>
+            <div class="schedule-row"><span class="schedule-date">JUN 11</span><span>Opening Match • Mexico City</span></div>
+            <div class="schedule-row"><span class="schedule-date">JUN 12</span><span>Canada Group Stage • Toronto</span></div>
+            <div class="schedule-row"><span class="schedule-date">JUN 12</span><span>USA Group Stage • Los Angeles</span></div>
+            <div class="schedule-row"><span class="schedule-date">JUL 14</span><span>Semi-Final A • Atlanta</span></div>
+            <div class="schedule-row"><span class="schedule-date">JUL 15</span><span>Semi-Final B • Dallas</span></div>
+            <div class="schedule-row" style="border:none;"><span class="schedule-date">JUL 19</span><span style="font-weight: 900;">Grand Final • New York New Jersey</span></div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="glass-card">
+            <h2>Venue Spotlight</h2>
+            <img src="https://tse2.mm.bing.net/th/id/OIP.JEshMYayev-7RHDPWkiGTwHaEK?pid=ImgDet&w=474&h=266&rs=1&o=7&rm=3" class="stadium-preview">
+            <p style="margin-top: 15px; font-weight: 700;">Mercedes-Benz Stadium</p>
+            <p style="font-size: 0.85rem; color: #999;">Atlanta, GA. Designated semi-final venue and operational hub for field personnel.</p>
+            
+            <img src="https://tse4.mm.bing.net/th/id/OIP.CPJTdKSpAw0tZ5zXTkNWhQHaMz?w=1399&h=2420&rs=1&pid=ImgDetMain&o=7&rm=3" class="trophy-large" alt="FIFA World Cup Trophy">
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 FIFA DIPLOMATIC LIAISON OFFICE | NAIROBI HUB</p>
+    <p>GOVERNMENT OF KENYA • GOVERNMENT OF CANADA • WE ARE 26™</p>
+</footer>
+
+<script>
+    function pick(el, role) {
+        document.querySelectorAll('.role-item').forEach(r => r.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('magic-portal').style.display = 'block';
+    }
+
+    const kickoff = new Date("June 11, 2026 18:00:00").getTime();
+
+    function updateTimer() {
+        const now = new Date().getTime();
+        const diff = kickoff - now;
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML = `${d}D : ${h}H : ${m}M : ${s}S`;
+        
+        if (diff < 0) {
+            document.getElementById("timer").innerHTML = "MATCH DAY";
+        }
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+</script>
+
+</body>
+</html>
